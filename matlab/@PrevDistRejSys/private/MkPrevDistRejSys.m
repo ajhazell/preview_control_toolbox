@@ -7,10 +7,13 @@ lw=psys.G.lw;
 N=psys.N;
 
 % absorb Wz and Ww into G to give GW
-Wwru=ss(eye(l+m));
-Wwru(lr+1:l,1+lr:l)=psys.Ww;
-Wyz=ss(eye(p+q));
-Wyz(1:p,1:p)=psys.Wz;
+%Wwru=ss(eye(l+m));
+%Wwru(lr+1:l,1+lr:l)=psys.Ww;
+Wwru = blkdiag(ss(eye(lr)),psys.Ww,ss(eye(m)))
+
+%Wyz=ss(eye(p+q));
+%Wyz(1:p,1:p)=psys.Wz;
+Wyz  = blkdiag(psys.Wz,eye(q))
 GW=DistRejGSys(Wyz*psys.G*Wwru,q,m,lr);
 psys.GW=GW;
 [Ag,B1g,B2g,C1g,C2g,D11g,D12,D21g,D22g,Ts]=GetSS(GW);
@@ -40,7 +43,8 @@ A=[Ag B1gr*Cp;zeros(nps,ng) Ap];
 C=[C1;C2];
 D=[D11 D12; D21 D22];
 
-Wwru=ss(eye(l+m));
-Wwru(1:lr,1:lr)=psys.Wr;
+%Wwru=ss(eye(l+m));
+%Wwru(1:lr,1:lr)=psys.Wr;
+Wwru = blkdiag(psys.Wr,eye(lw+m))
 P=DistRejGSys(ss(A,B,C,D,psys.G.Ts)*Wwru,q+lr,m,lr);
 

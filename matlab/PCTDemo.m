@@ -1,4 +1,4 @@
-clear all
+%clear all
 
 %%
 % Define signal dimensions
@@ -62,7 +62,7 @@ Ggen=GenSys(minreal(ss(Ggen)),q,m);
 
 %% 
 % Define low pass output weighting function
-Wz=[trackweight*zpk(0,0.99,1,Ts),0;0, 1];
+Wz=[trackweight*zpk(0,0.99,1,Ts),ss(0);ss(0), ss(1)];
 
 %%
 % Define input weighting function

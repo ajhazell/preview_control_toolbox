@@ -19,8 +19,9 @@ F2p=F2(:,ng+1:ng+nps);
 F2r=F2(:,ng+nps+1:end);
 F0r=F0(:,1:lr);
 F0w=F0(:,lr+1:end);
-
-Ygg=X2d(adj(P.GW(:,lr+1:end)));
+[A,B,C,D,Ts] = ssdata(P.GW)
+GWwu = GenSys(ss(A,B(:,(lr+1):end),C,D(:,(lr+1):end),Ts),q,m)
+Ygg=X2d(adj(GWwu));
 
 Sgg=D21gw*D21gw'+C2g*Ygg*C2g';
 L2g=-(Ag*Ygg*C2g'+B1gw*D21gw')*inv(Sgg);
