@@ -1,0 +1,4 @@
+function [lw lr]=Getlwlr(psys)
+
+lw=psys.lw;
+lr=psys.lr;

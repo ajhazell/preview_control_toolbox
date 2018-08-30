@@ -1,0 +1,4 @@
+function psys=Set_k(psys,k)
+
+psys.k=k;
+psys=MkPrevSys(psys);
