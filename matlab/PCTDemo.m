@@ -1,4 +1,4 @@
-clear all
+clear classes
 
 %%
 % Define signal dimensions
