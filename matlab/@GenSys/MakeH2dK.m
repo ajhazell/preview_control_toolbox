@@ -4,7 +4,7 @@ function K=MakeH2dK(P,X,Y)
 % Generate H2-optimal, discrete-time, output feedback controller
 % X is the solution to the full information H2 Riccati Equation
 % Y is the solution to the output feedbakc H2 Riccati Equation
-
+disp('HERE')
 [A,B1,B2,C1,C2,D11,D12,D21,D22,Ts]=GetSS(P);
 
 Rb=B2'*X*B2+D12'*D12;

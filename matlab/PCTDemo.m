@@ -82,6 +82,19 @@ fprintf('H2...')
 K2=MkH2dK(P); % Compute OF controller, calls efficient routines in DistRejPrevSys
 CL2=lft(P,K2); %  form closed loop using a linear fractional transformation
 
+% Check brute force solution 
+fprintf('Checking for accuracy against brute force solution...')
+K_brute= MakeH2dK(P,X2d(P),X2d(trans(P)));
+d_err = max(svd(K_brute.D-K2.D));
+c_err = max(svd(K_brute.C-K2.C));
+b_err = max(svd(K_brute.B-K2.B));
+a_err = max(svd(K_brute.A-K2.A));
+
+if max([a_err,b_err,c_err,d_err]) > 1e-7
+    error('Something has gone wrong - efficient and brute force solutions do not match')
+end
+
+fprintf('ok\n')
 % fprintf('Hinf...')
 % gam0=1;h0=1000;hmin=1e-2;bFI=false;
 % [Kinf,gam]=MkOptHinfdK(P,P.N,gam0,h0,hmin,bFI); % Compute OF controller, calls efficient routines in DistRejPrevSys
