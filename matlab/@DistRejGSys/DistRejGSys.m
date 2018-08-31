@@ -10,7 +10,7 @@ classdef DistRejGSys < GenSys
        
 
         function gsys=DistRejGSys(G,q,m,lr)
-        % DistRejGSys(G,q,m,lr)
+            % DistRejGSys(G,q,m,lr)
         %
         % Constructor for DistRejGSys - Helper class for PrevDistRejSys
         %

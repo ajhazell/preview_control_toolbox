@@ -10,7 +10,7 @@ function psys=LQRTrackSys(G,R,Q,N)
 %
 % WARNING: LQRTrackSys is early version code, so its probably quite easy to
 % break
-
+error('This class hasn''t yet been upgraded to the new format. Add an issue to the github page if you want me to do it.')
 m=size(G,2);
 p1=size(G,1);
 lr=p1;

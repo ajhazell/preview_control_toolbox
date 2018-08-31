@@ -5,7 +5,6 @@ classdef PrevDistRejSys < DistRejGSys
         Wz
         Ww
         nwr
-       
         N
         G
         ng
