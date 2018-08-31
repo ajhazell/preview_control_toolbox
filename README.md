@@ -34,7 +34,7 @@ The class hierachy is
               LQRTrackSys   
 
 
-Please direct any comments/suggestions to a.hazell@ic.ac.uk
+Please add an 'issue' to the issue tracker if you have any comments or suggestions.
 
 
 Getting Started
