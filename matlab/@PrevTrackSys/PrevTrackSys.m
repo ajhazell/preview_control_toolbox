@@ -97,16 +97,7 @@ classdef PrevTrackSys < PrevDistRejSys
         Gtrack=DistRejGSys(ss(A,B,C,D,G.Ts),qg,m,lr);
 
         psys=psys@PrevDistRejSys(Gtrack,N,Wz,Wr,Ww);
-        psys.Wr = Wr;
-        psys.Wz=Wz;
 
-        psys.Ww=Ww;
-        psys.nwr=nwr;
-        psys.lr=lr;
-        psys.lw=lw;
-        psys.N=N;
-        psys.G=G;
-        psys.ng=ng;
         end
     end
 end

@@ -66,7 +66,7 @@ Wz=[trackweight*zpk(0,0.99,1,Ts),0;0, 1];
 
 %%
 % Define input weighting function
-Wr=eye(lr); % could be any 'lti' object
+Wr=eye(lr);%c2d(tf([1],[1 0.1]),Ts,'tustin'); % could be any 'lti' object
 
 %% 
 % Create P, which is the generalised plant for the preview tracking system
@@ -95,16 +95,17 @@ if max([a_err,b_err,c_err,d_err]) > 1e-7
 end
 
 fprintf('ok\n')
-% fprintf('Hinf...')
-% gam0=1;h0=1000;hmin=1e-2;bFI=false;
-% [Kinf,gam]=MkOptHinfdK(P,P.N,gam0,h0,hmin,bFI); % Compute OF controller, calls efficient routines in DistRejPrevSys
-% fprintf('achieved gamma=%0.3g...',gam)
-% CLinf=lft(P,Kinf); % linear fractional transformation
-% fprintf('done.\n')
+fprintf('Hinf...')
+gam0=1;h0=1000;hmin=1e-2;bFI=false;
+[Kinf,gam]=MkOptHinfdK(P,P.N,gam0,h0,hmin,bFI); % Compute OF controller, calls efficient routines in DistRejPrevSys
+fprintf('achieved gamma=%0.3g...',gam)
+CLinf=lft(P,Kinf); % linear fractional transformation
+fprintf('done.\n')
 
-%Uncomment these lines to do brute force checking of achieved norm
-%fprintf('Checking Hinf OF norm bound satisfied...')
-%fprintf('Bound=%0.5g, Achieved=%0.5g\n',gam,norm(CLinf,inf))
+% Uncomment these lines to do brute force checking of achieved norm,
+% or comment them if it's running too slowly
+fprintf('Checking Hinf OF norm bound satisfied...')
+fprintf('Bound=%0.5g, Achieved=%0.5g\n',gam,norm(CLinf,inf))
 
 %%
 % Obtain full information version of generalised plant
@@ -117,12 +118,12 @@ fprintf('H2...')
 KFI2=KFI2d(P); % Compute FI H2 gains
 CLFI2=lft(PFI,KFI2); % linear fractional transformation
 
-% fprintf('Hinf...')
-% gam0=1;h0=1000;hmin=1e-2;bFI=true;
-% [KFIinf,gamFI]=MkOptHinfdK(P,P.N,gam0,h0,hmin,bFI); % Compute FI controller gain, calls efficient routines in DistRejPrevSys
-% fprintf('achieved gamma=%0.3g...',gam)
-% CLFIinf=lft(PFI,KFIinf); % linear fractional transformation, calls efficient routines in DistRejPrevSys
-% fprintf('done.\n')
+fprintf('Hinf...')
+gam0=1;h0=1000;hmin=1e-2;bFI=true;
+[KFIinf,gamFI]=MkOptHinfdK(P,P.N,gam0,h0,hmin,bFI); % Compute FI controller gain, calls efficient routines in DistRejPrevSys
+fprintf('achieved gamma=%0.3g...',gam)
+CLFIinf=lft(PFI,KFIinf); % linear fractional transformation, calls efficient routines in DistRejPrevSys
+fprintf('done.\n')
 
 %%
 % If the preview length is very large, then storing the full augmented
@@ -149,9 +150,10 @@ fprintf('done.\n')
 fprintf('Improvement in 2-norm due to preview=%0.3g, which is %5.2f percent of the maximum possible improvement.\n',gam2prev,100*gam2prev/gam2prevmax)
 
 
-%Uncomment these lines to do brute-force checking of achieved inf norm
-%fprintf('Checking Hinf FI norm bound satisfied...')
-%fprintf('Bound=%0.5g, Achieved=%0.5g\n',gam,norm(CLinf,inf))
+% Uncomment these lines to do brute-force checking of achieved inf norm,
+% or comment them again if execution is too slow
+fprintf('Checking Hinf FI norm bound satisfied...')
+fprintf('Bound=%0.5g, Achieved=%0.5g\n',gam,norm(CLinf,inf))
 
 %%
 fprintf('\nComputed all controllers, now beginning simulations \n\t[may be slow ... efficient simulation code not yet developed]....')
@@ -163,37 +165,35 @@ figure(1);clf
 subplot(2,1,1)
 step(CLFI2(1,1)/(Wz(1,1)*Wr(1,1))+Phi,Tf)
 hold all
-% step(CLFIinf(1,1)/(Wz(1,1)*Wr(1,1))+Phi,Tf)
+step(CLFIinf(1,1)/(Wz(1,1)*Wr(1,1))+Phi,Tf)
 step(Phi,Tf)
 grid on
-%legend('Ouput of G with H2 Control', 'Output of G with Hinf Control', 'Desired output')
-legend('Ouput of G with H2 Control', 'Desired output')
+legend('Ouput of G with H2 Control', 'Output of G with Hinf Control', 'Desired output')
 title('Full Information Preview Tracking Controllers')
 
 subplot(2,1,2)
 step(CLFI2(2,1)/(Wz(2,2)*Wr(1,1)),Tf)
 hold all
-% step(CLFIinf(2,1)/(Wz(2,2)*Wr(1,1)),Tf)
-% grid on
-%legend('H2 Control','Hinf Control')
-legend('H2 Control')
+step(CLFIinf(2,1)/(Wz(2,2)*Wr(1,1)),Tf)
+grid on
+legend('H2 Control','Hinf Control')
+
 %%
 % Plot OF step responses
 figure(2);clf
 subplot(2,1,1)
 step(CL2(1,1)/(Wz(1,1)*Wr(1,1))+Phi,Tf)
 hold all
-% step(CLinf(1,1)/(Wz(1,1)*Wr(1,1))+Phi,Tf)
+step(CLinf(1,1)/(Wz(1,1)*Wr(1,1))+Phi,Tf)
 step(Phi,Tf)
 grid on
-%legend('Ouput of G with H2 Control', 'Output of G with Hinf Control', 'Desired output')
-legend('Ouput of G with H2 Control', 'Desired output')
+legend('Ouput of G with H2 Control', 'Output of G with Hinf Control', 'Desired output')
 title('Output Feedback Preview Tracking Controllers')
 
 subplot(2,1,2)
 step(CL2(2,1)/(Wz(2,2)*Wr(1,1)),Tf)
 hold all
-% step(CLinf(2,1)/(Wz(2,2)*Wr(1,1)),Tf)
+step(CLinf(2,1)/(Wz(2,2)*Wr(1,1)),Tf)
 grid on
 
 fprintf('... done.\n')

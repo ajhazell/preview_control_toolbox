@@ -13,7 +13,7 @@ nTriesMax=100;
 
 bVerbose=false;
 if nargin>6
-    if strcmp(option,'verbose')
+    if strcmp(option,'verbose') %#TODO: This is a terrible way of doing options!
         bVerbose=true;
     end
 end
