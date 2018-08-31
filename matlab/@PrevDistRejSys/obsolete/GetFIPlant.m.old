@@ -1,6 +1,0 @@
-function PFI=GetFIPlant(P)
-
-[A,B1,B2,C1,C2,D11,D12,D21,D22,Ts]=GetSS(P);
-[n,p,q,l,m]=Getsz(P);
-PFI=PrevSys(GenSys(ss(A,[B1 B2],[C1;eye(n);zeros(l,n)],...
-	[D11 D12;[zeros(n,l);eye(l)] zeros(n+l,m) ],Ts),n+l,m),P.k,P.lr,P.Wz,P.Wr);

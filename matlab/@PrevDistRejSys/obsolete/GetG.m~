@@ -1,3 +1,0 @@
-function G=GetG(psys)
-'Warning: did you mean to do this'
-G=psys.G;

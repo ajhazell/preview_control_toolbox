@@ -180,7 +180,7 @@ if ~bFI
 	DKt=inv(eye(m)+DK*D22)*DK;
 	AKt=AK-BK*D22*CKt;
 	BKt=BK-BK*D22*DKt;
-	K=ss(AKt,BKt,CKt,DKt,P.DistRejGSys.Ts);
+	K=ss(AKt,BKt,CKt,DKt,P.Ts);
 else
 	K=-inv(Rb3)*[Lb2 Rb2];
 end

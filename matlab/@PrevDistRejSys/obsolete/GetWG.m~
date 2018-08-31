@@ -1,6 +1,0 @@
-function WG=GetWG(P)
-% Gets transfer func from [w;u] to [z;y]   (i.e. ignores r)
-
-[n,p,q,lw,m]=Getsz(P.G);
-[lw, lr]=Getlwlr(P);
-WG=ss([P.Wz zeros(p,q);zeros(q,p) eye(q)])*P.G;

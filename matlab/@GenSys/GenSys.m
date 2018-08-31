@@ -1,30 +1,45 @@
-function sys=GenSys(G,q,m)
-% sys=GenSys(G,q,m)
-% Constructs a generalised plant (i.e. one with w and u as inputs
-% and z and y as outputs) from the ss system, G
-% q is the number of measurements (i.e. length(y))
-% m is the number of controls (i.e. length(u))
+classdef GenSys < ss
 
-if nargin==0
-    sys.n=0; 
-    sys.p=0;
-    sys.q=0;
-    sys.l=0;
-    sys.m=0;
-    sys=class(sys,'GenSys',ss);
-else
+    properties
+        n
+        p
+        q
+        l
+        m
 
-    [A,B,C,D]=ssdata(G);
-    n=size(A,1);
-    l=size(B,2)-m;
-    p=size(C,1)-q;
+    end
+    methods
+        function obj=GenSys(G,q,m)
+            % obj=GenSys(G,q,m)
+            % Constructs a generalised plant (i.e. one with w and u as inputs
+            % and z and y as outputs) from the ss objtem, G
+            % q is the number of measurements (i.e. length(y))
+            % m is the number of controls (i.e. length(u))
+            [A,B,C,D,Ts] = ssdata(G);
+            obj = obj@ss(A,B,C,D,Ts); % no idea why we need to unpack and pack, but something breaks if we construct from ss(G)
+ 
+            if nargin==0
+                obj.n=0; 
+                obj.p=0;
+                obj.q=0;
+                obj.l=0;
+                obj.m=0;
+                
+            else
 
-    sys.n=n; % number of states
-    sys.p=p; % number of controlled variables (i.e. length (z))
-    sys.q=q; % number of measurements
-    sys.l=l; % number of disturbances (i.e. length(w))
-    sys.m=m; % number of controls
-    sys=class(sys,'GenSys',ss(G),PublicProperties());
+                [A,B,C,D]=ssdata(G);
+                n=size(A,1);
+                l=size(B,2)-m;
+                p=size(C,1)-q;
+
+                obj.n=n; % number of states
+                obj.p=p; % number of controlled variables (i.e. length (z))
+                obj.q=q; % number of measurements
+                obj.l=l; % number of disturbances (i.e. length(w))
+                obj.m=m; % number of controls
+                
+            end
+            
+        end
+    end
 end
-
-superiorto('ss')

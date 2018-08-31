@@ -1,4 +1,0 @@
-function psys=Inc_k(psys)
-
-psys.k=psys.k+1;
-psys=MkPrevSys(psys)
