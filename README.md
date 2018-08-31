@@ -43,7 +43,8 @@ Please direct any comments/suggestions to a.hazell@ic.ac.uk
 Getting Started
 ===============
 
-Add the root folder 'PCT' to your MATLAB path, and see 'PCTDemo.m' for an introduction to using this code.
+Run 'setupPCT.m' (found in the repository root) to setup the paths.
+See 'PCTDemo.m' for an introduction to using this code.
 
 Online help can can be obtained by, for example, typing 
 	>>help PrevTrackSys

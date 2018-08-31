@@ -1,0 +1,2 @@
+setupPCT
+runtests('./tests/')
