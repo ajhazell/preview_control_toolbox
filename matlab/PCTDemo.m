@@ -82,12 +82,12 @@ fprintf('H2...')
 K2=MkH2dK(P); % Compute OF controller, calls efficient routines in DistRejPrevSys
 CL2=lft(P,K2); %  form closed loop using a linear fractional transformation
 
-fprintf('Hinf...')
-gam0=1;h0=1000;hmin=1e-2;bFI=false;
-[Kinf,gam]=MkOptHinfdK(P,P.N,gam0,h0,hmin,bFI); % Compute OF controller, calls efficient routines in DistRejPrevSys
-fprintf('achieved gamma=%0.3g...',gam)
-CLinf=lft(P,Kinf); % linear fractional transformation
-fprintf('done.\n')
+% fprintf('Hinf...')
+% gam0=1;h0=1000;hmin=1e-2;bFI=false;
+% [Kinf,gam]=MkOptHinfdK(P,P.N,gam0,h0,hmin,bFI); % Compute OF controller, calls efficient routines in DistRejPrevSys
+% fprintf('achieved gamma=%0.3g...',gam)
+% CLinf=lft(P,Kinf); % linear fractional transformation
+% fprintf('done.\n')
 
 %Uncomment these lines to do brute force checking of achieved norm
 %fprintf('Checking Hinf OF norm bound satisfied...')
@@ -104,12 +104,12 @@ fprintf('H2...')
 KFI2=KFI2d(P); % Compute FI H2 gains
 CLFI2=lft(PFI,KFI2); % linear fractional transformation
 
-fprintf('Hinf...')
-gam0=1;h0=1000;hmin=1e-2;bFI=true;
-[KFIinf,gamFI]=MkOptHinfdK(P,P.N,gam0,h0,hmin,bFI); % Compute FI controller gain, calls efficient routines in DistRejPrevSys
-fprintf('achieved gamma=%0.3g...',gam)
-CLFIinf=lft(PFI,KFIinf); % linear fractional transformation, calls efficient routines in DistRejPrevSys
-fprintf('done.\n')
+% fprintf('Hinf...')
+% gam0=1;h0=1000;hmin=1e-2;bFI=true;
+% [KFIinf,gamFI]=MkOptHinfdK(P,P.N,gam0,h0,hmin,bFI); % Compute FI controller gain, calls efficient routines in DistRejPrevSys
+% fprintf('achieved gamma=%0.3g...',gam)
+% CLFIinf=lft(PFI,KFIinf); % linear fractional transformation, calls efficient routines in DistRejPrevSys
+% fprintf('done.\n')
 
 %%
 % If the preview length is very large, then storing the full augmented
@@ -150,35 +150,37 @@ figure(1);clf
 subplot(2,1,1)
 step(CLFI2(1,1)/(Wz(1,1)*Wr(1,1))+Phi,Tf)
 hold all
-step(CLFIinf(1,1)/(Wz(1,1)*Wr(1,1))+Phi,Tf)
+% step(CLFIinf(1,1)/(Wz(1,1)*Wr(1,1))+Phi,Tf)
 step(Phi,Tf)
 grid on
-legend('Ouput of G with H2 Control', 'Output of G with Hinf Control', 'Desired output') 
+%legend('Ouput of G with H2 Control', 'Output of G with Hinf Control', 'Desired output')
+legend('Ouput of G with H2 Control', 'Desired output')
 title('Full Information Preview Tracking Controllers')
 
 subplot(2,1,2)
 step(CLFI2(2,1)/(Wz(2,2)*Wr(1,1)),Tf)
 hold all
-step(CLFIinf(2,1)/(Wz(2,2)*Wr(1,1)),Tf)
-grid on
-legend('H2 Control','Hinf Control')
-
+% step(CLFIinf(2,1)/(Wz(2,2)*Wr(1,1)),Tf)
+% grid on
+%legend('H2 Control','Hinf Control')
+legend('H2 Control')
 %%
 % Plot OF step responses
 figure(2);clf
 subplot(2,1,1)
 step(CL2(1,1)/(Wz(1,1)*Wr(1,1))+Phi,Tf)
 hold all
-step(CLinf(1,1)/(Wz(1,1)*Wr(1,1))+Phi,Tf)
+% step(CLinf(1,1)/(Wz(1,1)*Wr(1,1))+Phi,Tf)
 step(Phi,Tf)
 grid on
-legend('Ouput of G with H2 Control', 'Output of G with Hinf Control', 'Desired output')
+%legend('Ouput of G with H2 Control', 'Output of G with Hinf Control', 'Desired output')
+legend('Ouput of G with H2 Control', 'Desired output')
 title('Output Feedback Preview Tracking Controllers')
 
 subplot(2,1,2)
 step(CL2(2,1)/(Wz(2,2)*Wr(1,1)),Tf)
 hold all
-step(CLinf(2,1)/(Wz(2,2)*Wr(1,1)),Tf)
+% step(CLinf(2,1)/(Wz(2,2)*Wr(1,1)),Tf)
 grid on
 
 fprintf('... done.\n')

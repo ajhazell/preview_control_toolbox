@@ -25,7 +25,7 @@ DKt=inv(eye(size(B2,2))+DK*D22)*DK;
 AKt=AK-BK*D22*CKt;
 BKt=BK-BK*D22*DKt;
 Ptmp=P;
-K=ss(AKt,BKt,CKt,DKt,P.DistRejGSys.Ts);
+K=ss(AKt,BKt,CKt,DKt,P.Ts);
 %K=PrevController(K,P.lr,P.N);
 
 
