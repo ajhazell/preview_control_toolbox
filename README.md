@@ -1,10 +1,8 @@
 # preview_control_toolbox
-Matlab Preview Control Toolbox 
-==========================
+Matlab Preview Control Toolbox v0.3
+===================================
 
-This is the first release of a toolbox for Preview Control.
-
-This toolbox is not yet feature complete, and whilst it has been thoroughly tested for accuracy of the algorithms, it has not yet undergone testing for software robustness.
+This is the first new version for 10 years! The core algorithms are unchanged, but it is now updated to work with the modern Matlab class syntax and tested against Matlab 2018a. 
 
 Full technical details may be found in: 
 
@@ -22,7 +20,6 @@ GenSys		: Generalised plant
 DistRejGSys     : Generalised plant with exogenous input split into w and r components
 DistRejPrevSys  : Generalised plant for the general previewable disturbance rejection problem
 PrevTrackSys    : Generalised plant for the preview tracking problem
-PrevTrackSys    : Generalised plant for the LQR preview tracking problem
 
 The class hierachy is
 
@@ -43,11 +40,11 @@ Please direct any comments/suggestions to a.hazell@ic.ac.uk
 Getting Started
 ===============
 
-Add the root folder 'PCT' to your MATLAB path, and see 'PCTDemo.m' for an introduction to using this code.
+Add the root folder 'matlab' to your MATLAB path, and see 'PCTDemo.m' for an introduction to using this code.
 
 Online help can can be obtained by, for example, typing 
 	>>help PrevTrackSys
 
-Further documentation will follow in the next version.
+Further documentation will follow in the next version. However, I've been saying that for the last 10 years and haven't done it. If you've got any specific questions please add an issue to the issues list and I'll try to get back to you.
 
 
